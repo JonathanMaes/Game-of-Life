@@ -3,6 +3,7 @@ var grid,
     steps = 0,
     position = {x:0,y:0,zoom:1},
     updateRate = Infinity,
+    lastCell = {x:0,y:0};
     conditions = {
       aliveLive:function(t) {
         return t===2||t===3;
@@ -12,7 +13,6 @@ var grid,
       }
     },
     settings = {
-      showCrosshair:false,
       showCell:true
     };
 
@@ -43,16 +43,6 @@ function draw() {
     //point(getCellAtMouse().x*s+s/2, getCellAtMouse().y*s+s/2)
   }
   pop();
-  if (settings.showCrosshair) {
-    strokeWeight(1);
-    stroke(127);
-    line(width/2-10,height/2,width/2+10,height/2);
-    line(width/2,height/2-10,width/2,height/2+10);
-    strokeWeight(3);
-    stroke(255, 0, 0);
-    noFill();
-    rect(width/2-10, height/2-10, 20, 20);
-  }
 }
 
 function Grid(randomize=true, w=10, h=10) {
@@ -126,7 +116,7 @@ Grid.prototype.update = function() {
   // The updatingcells get removed, and replaced by the new ones
   this.updatingCells = newUpdatingCells;
   steps++;
-  document.getElementById('simulationStep').innerHTML = steps;
+  updateStepsCounter();
 }
 
 Grid.prototype.willBeAlive = function(x, y) {
@@ -164,32 +154,35 @@ Grid.prototype.toggle = function(x, y) {
 }
 
 function mouseDragged() {
-  position.x += (mouseX - pmouseX)/position.zoom;
-  position.y += (mouseY - pmouseY)/position.zoom;
+  if (keyIsDown(32)) {
+    let pos = getCellAtMouse();
+    if (pos.x != lastCell.x || pos.y != lastCell.y) {
+      grid.toggle(pos.x, pos.y);
+    }
+    lastCell = pos;
+  } else {
+    position.x += (mouseX - pmouseX)/position.zoom;
+    position.y += (mouseY - pmouseY)/position.zoom;
+  }
 }
 
 function mousePressed() {
   if (mouseX < width && mouseY < height && keyIsDown(32)) {
-    let pos = {
-      x:Math.floor((-position.x+(mouseX-width/2)/position.zoom)/s),
-      y:Math.floor((-position.y+(mouseY-height/2)/position.zoom)/s)
-    };
+    let pos = getCellAtMouse();
     grid.toggle(pos.x, pos.y);
+    lastCell = pos;
   }
   redraw();
 }
 
 function mouseWheel(e) {
-  //p = {x:mouseX/width/2,y:mouseY/height/2};
   position.zoom*=e.delta>0?0.9:1.1;
-  //position.x -= mouseX/width/position.zoom*e.delta>0?-1:1;
-  //position.y -= mouseY/height/position.zoom*e.delta>0?-1:1;
   //grid.update();
 }
 
 function keyPressed() {
   if (keyCode===CONTROL) {
-    updateRate=updateRate===1?Infinity:(updateRate===12?1:12);
+    nextSpeed();
   } else if (keyCode===BACKSPACE) {
     updateRate=Infinity;
   } else if (keyCode===85) {
@@ -201,12 +194,15 @@ function randomizeGrid() {
   grid = new Grid(true, 20, 15);
   grid.display(s);
   steps = 0;
+  updateStepsCounter();
 }
 
+//
 function clearGrid() {
   grid = new Grid(false);
   grid.display(s);
   steps = 0;
+  updateStepsCounter();
   updateRate=Infinity;
 }
 
@@ -215,4 +211,12 @@ function getCellAtMouse() {
     x:Math.floor((-position.x+(mouseX-width/2)/position.zoom)/s),
     y:Math.floor((-position.y+(mouseY-height/2)/position.zoom)/s)
   };
+}
+
+function updateStepsCounter() {
+  document.getElementById('simulationStep').innerHTML = steps;
+}
+
+function nextSpeed() {
+  updateRate = updateRate===1?Infinity:(updateRate===12?1:12);
 }
