@@ -1,4 +1,4 @@
-# Game-of-Life
+# Game of Life
 
 > [**Click here to see the result!**](https://jonathanmaes.github.io/Game-of-Life/)
 
