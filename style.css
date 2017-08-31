@@ -81,6 +81,8 @@ button:hover {
   border-radius:4px;
   background-color:mediumblue;
   transition: background-color 0.2s;
+  font-size:11px;
+  padding:2px;
 }
 .settingsBtn:hover {
   background-color:steelblue;
