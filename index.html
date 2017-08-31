@@ -1,0 +1,35 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/p5.min.js"></script>
+  <!-- uncomment lines below to include extra p5 libraries -->
+  <!--<script language="javascript" src="libraries/p5.dom.js"></script>-->
+  <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
+  <script language="javascript" type="text/javascript" src="sketch.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+  <p id="simulationStep" class="center">If you see this text, something went wrong.</p>
+  <div id="controls">
+    <ul>
+      <li><strong>SPACEBAR+CLICK: toggle individual cells' state</strong></li>
+      <li>CTRL: Simulation runs automatically at 0->5->60 FPS</li>
+      <li>BACKSPACE: Pause the simulation</li>
+      <li><strong>U: Perform 1 simulation step</strong></li>
+      <li>Drag & scroll: move the viewport</li>
+    </ul>
+    <p class="center">Hover to show the controls</p>
+  </div>
+  <div id="canvaswrapper"></div>
+  <div id="title">
+    <h1>Game<br>Of<br>Life</h1>
+  </div>
+  <div id="buttons">
+    <button class="gridBtn" id="randomizeBtn" onclick="randomizeGrid()">Randomize grid</button>
+    <button class="gridBtn" id="clearBtn" onclick="clearGrid()">Clear grid</button>
+    <button class="settingsBtn" id="showCrosshair" onclick="settings.showCrosshair=!settings.showCrosshair">Show/hide crosshair</button>
+    <button class="settingsBtn" id="showCell" onclick="settings.showCell=!settings.showCell">Show/hide hovering cell</button>
+  </div>
+</body>
+</html>
