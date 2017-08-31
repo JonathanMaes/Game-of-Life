@@ -87,6 +87,7 @@ button:hover {
   transition: background-color 0.2s;
   font-size:11px;
   padding:2px;
+  color:white;
 }
 .settingsBtn:hover {
   background-color:steelblue;
