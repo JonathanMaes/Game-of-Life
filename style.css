@@ -21,7 +21,7 @@ html, body {
 
 #controls {
   margin:0;
-  padding-top: 20px;
+  padding-top: 30px;
   margin-top:-100px;
   width:100%;
   background-color:lightgrey;
@@ -118,7 +118,7 @@ h1 {
 }
 
 h3 {
-  line-height:20px;
+  line-height:30px;
   font-family:VT323;
   font-size:30px;
 }
