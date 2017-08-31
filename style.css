@@ -116,6 +116,12 @@ h1 {
   color:darkgray;
 }
 
+h3 {
+  line-height:30px;
+  font-family:VT323;
+  font-size:30px;
+}
+
 h5 {
   margin:0;
   line-height:15px;
