@@ -13,7 +13,8 @@ var grid,
       }
     },
     settings = {
-      showCell:true
+      showCell:true,
+      constrainZoom:true
     };
 
 
@@ -177,6 +178,9 @@ function mousePressed() {
 
 function mouseWheel(e) {
   position.zoom*=e.delta>0?0.9:1.1;
+  if (settings.constrainZoom) {
+    position.zoom=constrain(position.zoom, 2/s, 5);
+  }
   //grid.update();
 }
 
