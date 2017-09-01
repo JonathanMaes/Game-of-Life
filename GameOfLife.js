@@ -51,7 +51,7 @@ function draw() {
     noStroke();
     fill(255);
     for (let i = 0; i < recentUpdates.length; i++) {
-      rect(i, height, 1, recentUpdates[i]/m*100);
+      rect(i, height, 1, -recentUpdates[i]/m*100);
     }
   }
 }
