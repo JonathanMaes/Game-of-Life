@@ -80,6 +80,8 @@ Grid.prototype.display = function(size) {
 }
 
 Grid.prototype.update = function() {
+  console.clear();
+  console.log(this.updatingCells.length);
   let newLiveCells = [];
   let newDeadCells = [];
   let newUpdatingCells = [];
