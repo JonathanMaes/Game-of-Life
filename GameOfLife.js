@@ -4,6 +4,7 @@ var grid,
     position = {x:0,y:0,zoom:1},
     updateRate = Infinity,
     lastCell = {x:0,y:0};
+    recentUpdates = [];
     conditions = {
       aliveLive:function(t) {
         return t===2||t===3;
@@ -14,7 +15,8 @@ var grid,
     },
     settings = {
       showCell:true,
-      constrainZoom:true
+      constrainZoom:true,
+      logUpdates:true
     };
 
 
@@ -44,6 +46,14 @@ function draw() {
     //point(getCellAtMouse().x*s+s/2, getCellAtMouse().y*s+s/2)
   }
   pop();
+  if (settings.logUpdates) {
+    let m = Math.max.apply(null, recentUpdates);
+    noStroke();
+    fill(255);
+    for (let i = 0; i < recentUpdates.length; i++) {
+      rect(i, height, 1, recentUpdates[i]/m*100);
+    }
+  }
 }
 
 function Grid(randomize=true, w=10, h=10) {
@@ -84,6 +94,12 @@ Grid.prototype.display = function(size) {
 }
 
 Grid.prototype.update = function() {
+  if (settings.logUpdates) {
+    recentUpdates.push(this.updatingCells.length);
+    if (recentUpdates.length > 100) {
+      recentUpdates.shift();
+    }
+  }
   console.clear();
   console.log(this.updatingCells.length);
   let newLiveCells = [];
