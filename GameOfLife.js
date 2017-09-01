@@ -28,6 +28,7 @@ function setup() {
   grid = new Grid(true, 20, 15);
   strokeWeight(2);
   noSmooth();
+  textAlign(LEFT, BOTTOM);
 }
 
 function draw() {
@@ -53,6 +54,7 @@ function draw() {
     for (let i = 0; i < recentUpdates.length; i++) {
       rect(i, height, 1, -recentUpdates[i]/m*100);
     }
+    text(recentUpdates[recentUpdates.length-1], 110, height-10);
   }
 }
 
