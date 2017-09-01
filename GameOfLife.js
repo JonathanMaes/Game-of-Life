@@ -79,7 +79,7 @@ Grid.prototype.display = function(size) {
   }
   stroke(255, 255, 0);
   for (let i = 0; i < this.updatingCells.length; i++) {
-    point(this.updatingCells[i].x*size, this.updatingCells[i].y*size);
+    point(this.updatingCells[i].x*size+size/2, this.updatingCells[i].y*size+size/2);
   }
 }
 
