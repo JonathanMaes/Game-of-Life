@@ -77,6 +77,10 @@ Grid.prototype.display = function(size) {
   for (let i = 0; i < this.liveCells.length; i++) {
     rect(this.liveCells[i].x*size, this.liveCells[i].y*size, size, size);
   }
+  stroke(255, 255, 0);
+  for (let i = 0; i < this.updatingCells.length; i++) {
+    point(this.updatingCells[i].x*size, this.updatingCells[i].y*size);
+  }
 }
 
 Grid.prototype.update = function() {
