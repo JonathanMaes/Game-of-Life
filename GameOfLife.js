@@ -16,7 +16,8 @@ var grid,
     settings = {
       showCell:true,
       constrainZoom:true,
-      logUpdates:true
+      logUpdates:true,
+      hyperspeed:false
     };
 
 
@@ -36,7 +37,11 @@ function draw() {
   scale(position.zoom);
   translate(position.x, position.y);
   translate(width/2/position.zoom, height/2/position.zoom);
-  if (frameCount%updateRate===0) grid.update();
+  if (settings.hyperspeed || keyIsDown(65)) {
+      for (let i = 0; i < 4; i++) {
+          grid.update();
+      }
+  } else if (frameCount%updateRate===0) grid.update();
   grid.display(s);
   if (settings.showCell) {
     strokeWeight(2);
@@ -213,8 +218,11 @@ function keyPressed() {
     nextSpeed();
   } else if (keyCode===BACKSPACE) {
     updateRate=Infinity;
+    settings.hyperspeed = false;
   } else if (keyCode===85) {
     grid.update();
+  } else if (keyCode===90) {
+    settings.hyperspeed = !settings.hyperspeed;
   }
 }
 
